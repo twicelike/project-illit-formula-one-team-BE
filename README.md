@@ -1,6 +1,5 @@
 # project-illit-formula-one-team-BE
-Kpop social media 
-# Weverse – Fandom Social Platform
+# Kpop social media
 
 A multi-artist fandom social platform, designed to connect artists and fans through dedicated communities, social interactions, multimedia content, and fan engagement activities.
 
