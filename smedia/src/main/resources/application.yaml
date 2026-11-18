@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: smedia
+  profiles:
+    active: dev
