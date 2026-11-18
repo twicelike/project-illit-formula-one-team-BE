@@ -3,7 +3,24 @@
 
 A multi-artist fandom social platform, designed to connect artists and fans through dedicated communities, social interactions, multimedia content, and fan engagement activities.
 
-## 1. Project Overview
+## 1. Technology Stack
+
+| Category | Technologies |
+|---|---|
+| Frontend | nextjs |
+| Backend | java |
+| Database | postgreSQL, Redis |
+| API | RESTful API |
+| Version Control | Git, GitHub |
+| Development Tools | Postman |
+
+### Development Approach
+- Modular and maintainable code structure.
+- Client-server architecture.
+- RESTful API communication.
+- Database-driven content management.
+- Scalable design for multiple artist communities.
+## 2. Project Overview
 
 **Weverse – Fandom Social Platform** is a community-driven social networking platform that brings multiple artists and their fandoms together in one centralized ecosystem.
 
@@ -18,7 +35,7 @@ The platform focuses on providing dedicated spaces where fans can follow their f
 - Provide event and concert information.
 - Develop a scalable foundation for multimedia content and user-generated interactions.
 
-## 2. Core Features
+## 3. Core Features
 
 ### Artist & Community Management
 - Browse and discover multiple artists.
@@ -54,20 +71,3 @@ The platform focuses on providing dedicated spaces where fans can follow their f
 - Community membership management.
 - User-generated content management.
 
-## 3. Technology Stack
-
-| Category | Technologies |
-|---|---|
-| Frontend | nextjs |
-| Backend | java |
-| Database | postgreSQL, Redis |
-| API | RESTful API |
-| Version Control | Git, GitHub |
-| Development Tools | Postman |
-
-### Development Approach
-- Modular and maintainable code structure.
-- Client-server architecture.
-- RESTful API communication.
-- Database-driven content management.
-- Scalable design for multiple artist communities.
