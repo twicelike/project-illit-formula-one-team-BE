@@ -65,6 +65,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,
                                 "/api/v1/users/*",
                                 "/api/v1/users/*/posts",
+                                "/api/v1/users/*/followers",
+                                "/api/v1/users/*/following",
                                 "/api/v1/artists",
                                 "/api/v1/artists/*",
                                 "/api/v1/companies",
@@ -74,7 +76,10 @@ public class SecurityConfig {
                                 "/api/v1/fandoms/*/artists",
                                 "/api/v1/fandoms/*/posts",
                                 "/api/v1/fandoms/*/media",
-                                "/api/v1/posts/*"
+                                "/api/v1/posts/*",
+                                "/api/v1/posts/*/comments",
+                                "/api/v1/posts/*/reactions",
+                                "/api/v1/comments/*/replies"
                         ).permitAll()
                         .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()

@@ -137,6 +137,17 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
+    public PageResponse<PostResponse> getFollowingFeed(
+            Integer viewerId,
+            boolean artistOnly,
+            boolean hasMedia,
+            Pageable pageable
+    ) {
+        Page<Post> page = postRepository.findFollowingFeed(viewerId, artistOnly, hasMedia, pageable);
+        return enrichPostPage(page, viewerId);
+    }
+
+    @Transactional(readOnly = true)
     public PageResponse<FandomMediaGalleryItem> getFandomMediaGallery(
             Integer fandomId,
             boolean artistOnly,

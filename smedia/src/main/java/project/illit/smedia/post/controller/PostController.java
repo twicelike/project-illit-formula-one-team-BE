@@ -81,6 +81,21 @@ public class PostController {
         ));
     }
 
+    @RateLimit(limit = 60, windowSeconds = 60)
+    @GetMapping("/feed/following")
+    public ResponseEntity<ApiResponse<PageResponse<PostResponse>>> getFollowingFeed(
+            @AuthenticationPrincipal CustomUserDetails principal,
+            @RequestParam(defaultValue = "false") boolean artistOnly,
+            @RequestParam(defaultValue = "false") boolean hasMedia,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, Math.min(size, 50));
+        return ResponseEntity.ok(ApiResponse.ok(
+                postService.getFollowingFeed(principal.getId(), artistOnly, hasMedia, pageable)
+        ));
+    }
+
     @RateLimit(limit = 100, windowSeconds = 60)
     @GetMapping("/posts/{postId}")
     public ResponseEntity<ApiResponse<PostResponse>> getPostDetail(

@@ -4,6 +4,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import project.illit.smedia.user.entity.ArtistProfile;
 
 import java.util.Collection;
@@ -34,4 +37,20 @@ public interface ArtistProfileRepository extends JpaRepository<ArtistProfile, In
             String stageName,
             Pageable pageable
     );
+
+    @Modifying
+    @Query("""
+            UPDATE ArtistProfile a
+            SET a.followersCount = COALESCE(a.followersCount, 0) + 1
+            WHERE a.userId = :artistUserId
+            """)
+    int incrementFollowersCount(@Param("artistUserId") Integer artistUserId);
+
+    @Modifying
+    @Query("""
+            UPDATE ArtistProfile a
+            SET a.followersCount = CASE WHEN COALESCE(a.followersCount, 0) > 0 THEN COALESCE(a.followersCount, 0) - 1 ELSE 0 END
+            WHERE a.userId = :artistUserId
+            """)
+    int decrementFollowersCount(@Param("artistUserId") Integer artistUserId);
 }
