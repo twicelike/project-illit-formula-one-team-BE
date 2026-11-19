@@ -60,7 +60,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,
                                 "/api/v1/users/me",
                                 "/api/v1/fandoms/me",
-                                "/api/v1/fandoms/*/members"
+                                "/api/v1/fandoms/*/members",
+                                "/api/v1/fan-letters/me",
+                                "/api/v1/artists/me/fan-letters"
                         ).authenticated()
                         .requestMatchers(HttpMethod.GET,
                                 "/api/v1/users/*",
@@ -69,6 +71,7 @@ public class SecurityConfig {
                                 "/api/v1/users/*/following",
                                 "/api/v1/artists",
                                 "/api/v1/artists/*",
+                                "/api/v1/artists/*/fan-letters",
                                 "/api/v1/companies",
                                 "/api/v1/companies/*",
                                 "/api/v1/fandoms",
@@ -76,10 +79,13 @@ public class SecurityConfig {
                                 "/api/v1/fandoms/*/artists",
                                 "/api/v1/fandoms/*/posts",
                                 "/api/v1/fandoms/*/media",
+                                "/api/v1/fandoms/*/fan-letters",
                                 "/api/v1/posts/*",
                                 "/api/v1/posts/*/comments",
                                 "/api/v1/posts/*/reactions",
                                 "/api/v1/comments/*/replies",
+                                "/api/v1/letter-templates",
+                                "/api/v1/fan-letters/*",
                                 "/api/v1/search",
                                 "/api/v1/search/**"
                         ).permitAll()
