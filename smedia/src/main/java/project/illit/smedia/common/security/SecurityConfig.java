@@ -64,13 +64,17 @@ public class SecurityConfig {
                         ).authenticated()
                         .requestMatchers(HttpMethod.GET,
                                 "/api/v1/users/*",
+                                "/api/v1/users/*/posts",
                                 "/api/v1/artists",
                                 "/api/v1/artists/*",
                                 "/api/v1/companies",
                                 "/api/v1/companies/*",
                                 "/api/v1/fandoms",
                                 "/api/v1/fandoms/*",
-                                "/api/v1/fandoms/*/artists"
+                                "/api/v1/fandoms/*/artists",
+                                "/api/v1/fandoms/*/posts",
+                                "/api/v1/fandoms/*/media",
+                                "/api/v1/posts/*"
                         ).permitAll()
                         .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()

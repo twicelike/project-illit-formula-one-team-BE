@@ -3,6 +3,10 @@ spring:
     name: smedia
   profiles:
     active: dev
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 12MB
 
 app:
   jwt:
@@ -16,3 +20,9 @@ app:
     enabled: ${RATE_LIMIT_ENABLED:true}
     default-limit: 120
     default-window-seconds: 60
+  storage:
+    max-file-size-bytes: 10485760
+    supabase:
+      url: ${SUPABASE_URL:}
+      service-role-key: ${SUPABASE_SERVICE_ROLE_KEY:}
+      bucket: ${SUPABASE_STORAGE_BUCKET:smedia-media}
