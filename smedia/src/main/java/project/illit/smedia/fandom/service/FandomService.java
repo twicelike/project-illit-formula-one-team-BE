@@ -358,7 +358,7 @@ public class FandomService {
         return fandomRepository.findAll(pageable);
     }
 
-    private PageResponse<FandomSummaryResponse> buildSummaryPage(Page<OfficialFandom> page, Integer currentUserId) {
+    public PageResponse<FandomSummaryResponse> buildSummaryPage(Page<OfficialFandom> page, Integer currentUserId) {
         List<Integer> fandomIds = page.getContent().stream()
                 .map(OfficialFandom::getId)
                 .toList();

@@ -336,7 +336,7 @@ public class PostService {
         return enriched.get(0);
     }
 
-    private PageResponse<PostResponse> enrichPostPage(Page<Post> page, Integer currentUserId) {
+    public PageResponse<PostResponse> enrichPostPage(Page<Post> page, Integer currentUserId) {
         List<PostResponse> enrichedItems = enrichPosts(page.getContent(), currentUserId);
         return PageResponse.<PostResponse>builder()
                 .items(enrichedItems)

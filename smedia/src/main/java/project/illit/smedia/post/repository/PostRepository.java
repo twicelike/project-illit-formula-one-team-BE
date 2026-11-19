@@ -137,4 +137,56 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
             WHERE p.id = :postId
             """)
     int decrementTotalComments(@Param("postId") Integer postId, @Param("delta") int delta);
+
+    @EntityGraph(attributePaths = {"user", "user.role", "fandom"})
+    @Query("""
+            SELECT p FROM Post p
+            WHERE UPPER(p.status) = 'PUBLISHED'
+              AND UPPER(p.fandom.status) = 'ACTIVE'
+              AND (:filterByFandom = false OR p.fandom.id = :fandomId)
+              AND (:filterByArtist = false OR p.isArtistPost = :artistPost)
+              AND (:onlyWithMedia = false OR EXISTS (
+                    SELECT 1 FROM Media m
+                    WHERE m.targetId = p.id
+                      AND m.targetType = 'POST'
+                      AND UPPER(m.status) = 'ACTIVE'
+              ))
+              AND LOWER(p.content) LIKE :containsPattern ESCAPE '\\'
+            ORDER BY p.createdAt DESC, p.id DESC
+            """)
+    Page<Post> searchPublishedPostsLatest(
+            @Param("containsPattern") String containsPattern,
+            @Param("filterByFandom") boolean filterByFandom,
+            @Param("fandomId") int fandomId,
+            @Param("filterByArtist") boolean filterByArtist,
+            @Param("artistPost") boolean artistPost,
+            @Param("onlyWithMedia") boolean onlyWithMedia,
+            Pageable pageable
+    );
+
+    @EntityGraph(attributePaths = {"user", "user.role", "fandom"})
+    @Query("""
+            SELECT p FROM Post p
+            WHERE UPPER(p.status) = 'PUBLISHED'
+              AND UPPER(p.fandom.status) = 'ACTIVE'
+              AND (:filterByFandom = false OR p.fandom.id = :fandomId)
+              AND (:filterByArtist = false OR p.isArtistPost = :artistPost)
+              AND (:onlyWithMedia = false OR EXISTS (
+                    SELECT 1 FROM Media m
+                    WHERE m.targetId = p.id
+                      AND m.targetType = 'POST'
+                      AND UPPER(m.status) = 'ACTIVE'
+              ))
+              AND LOWER(p.content) LIKE :containsPattern ESCAPE '\\'
+            ORDER BY (COALESCE(p.totalReactions, 0) * 2 + COALESCE(p.totalComments, 0) * 3) DESC, p.createdAt DESC, p.id DESC
+            """)
+    Page<Post> searchPublishedPostsHot(
+            @Param("containsPattern") String containsPattern,
+            @Param("filterByFandom") boolean filterByFandom,
+            @Param("fandomId") int fandomId,
+            @Param("filterByArtist") boolean filterByArtist,
+            @Param("artistPost") boolean artistPost,
+            @Param("onlyWithMedia") boolean onlyWithMedia,
+            Pageable pageable
+    );
 }

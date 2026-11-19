@@ -53,4 +53,36 @@ public interface ArtistProfileRepository extends JpaRepository<ArtistProfile, In
             WHERE a.userId = :artistUserId
             """)
     int decrementFollowersCount(@Param("artistUserId") Integer artistUserId);
+
+    @EntityGraph(attributePaths = {"company", "user"})
+    @Query("""
+            SELECT a FROM ArtistProfile a
+            JOIN a.user u
+            LEFT JOIN a.company c
+            WHERE u.isActive = true
+              AND (:filterByCompany = false OR c.id = :companyId)
+              AND (:filterByFandom = false OR EXISTS (
+                    SELECT 1 FROM FandomMember fm
+                    WHERE fm.fandom.id = :fandomId
+                      AND fm.user.id = a.userId
+                      AND UPPER(fm.role) = 'ARTIST'
+              ))
+              AND (
+                  LOWER(a.stageName) LIKE :containsPattern ESCAPE '\\'
+                  OR LOWER(u.name) LIKE :containsPattern ESCAPE '\\'
+                  OR LOWER(c.name) LIKE :containsPattern ESCAPE '\\'
+              )
+            ORDER BY CASE WHEN LOWER(a.stageName) LIKE :prefixPattern ESCAPE '\\' THEN 0 ELSE 1 END ASC,
+                     COALESCE(a.followersCount, 0) DESC,
+                     a.stageName ASC
+            """)
+    Page<ArtistProfile> searchActiveArtists(
+            @Param("containsPattern") String containsPattern,
+            @Param("prefixPattern") String prefixPattern,
+            @Param("filterByCompany") boolean filterByCompany,
+            @Param("companyId") int companyId,
+            @Param("filterByFandom") boolean filterByFandom,
+            @Param("fandomId") int fandomId,
+            Pageable pageable
+    );
 }
