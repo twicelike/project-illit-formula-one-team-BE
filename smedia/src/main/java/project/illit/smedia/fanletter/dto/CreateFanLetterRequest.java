@@ -22,7 +22,7 @@ public record CreateFanLetterRequest(
         Integer backgroundImageId,
 
         @Size(max = 255, message = "Background image URL must not exceed 255 characters")
-        @Pattern(regexp = "^$|^https?://.+", message = "Background image URL must start with http:// or https://")
+        @Pattern(regexp = "^$|^(/|https?://).+", message = "Background image URL must start with http://, https://, or /")
         String backgroundImageUrl,
 
         @Size(max = 30, message = "A fan letter can contain at most 30 stickers")

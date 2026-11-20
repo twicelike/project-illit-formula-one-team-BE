@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import project.illit.smedia.user.entity.Role;
 import project.illit.smedia.user.entity.RoleName;
@@ -11,6 +12,7 @@ import project.illit.smedia.user.repository.RoleRepository;
 
 @Slf4j
 @Component
+@Order(1)
 @ConditionalOnProperty(name = "app.seed-roles", havingValue = "true", matchIfMissing = true)
 public class RoleDataSeeder implements ApplicationRunner {
 
