@@ -1,4 +1,4 @@
-aapackage project.illit.smedia.user.entity;
+package project.illit.smedia.user.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
